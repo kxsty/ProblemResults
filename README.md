@@ -1,5 +1,5 @@
 # ProblemResults
-ProblemResults is a minimalistic result pattern library for .NET aimed at simplifying error returns in accordance with the [RFC 9457](https://tools.ietf.org/html/rfc9457) (Problem Details) standard.
+ProblemResults is a minimalistic result pattern library for .NET designed to simplify error returns in accordarnce with [RFC 9457](https://tools.ietf.org/html/rfc9457) (Problem Details) standard.
 
 ## Installation
 - [ProblemResults](https://www.nuget.org/packages/ProblemResults/) (Main package with ASP NET Core included, .NET 8)
@@ -52,8 +52,8 @@ existingResult.Match(
 // Returns Ok or NoContent (depending on the value present) on success
 // and Problem with the given status code on failure 
 
-existingResult.ToActionResult(this); // You can add your own traceId
-existingResult.ToIResult(httpContext);
+existingResult.ToActionResult(this); // Use “this” in the controller and “httpContext” in the minimal api to generate the instance field
+existingResult.ToIResult(httpContext); // Also you can add your own traceId
 
 // Allows the user to define part of the result (e.g. if you define onSuccess
 // and there is a failure, then onFailure will execute), returns ActionResult or IResult
