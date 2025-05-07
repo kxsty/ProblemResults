@@ -1,5 +1,5 @@
 # ProblemResults
-ProblemResults is a minimalistic result pattern library for .NET designed to simplify error returns in accordance with [RFC 9457](https://tools.ietf.org/html/rfc9457) (Problem Details) standard
+ProblemResults is a minimalistic results template library for .NET aimed at simplifying error returns in accordance with the [RFC 9457](https://tools.ietf.org/html/rfc9457) (Problem Details) standard.
 
 ## Installation
 - [ProblemResults](https://www.nuget.org/packages/ProblemResults/) (Main package with ASP NET Core included, .NET 8)
