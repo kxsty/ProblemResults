@@ -55,17 +55,19 @@ public static class ResultGeneric
 
     public static ActionResult HandleSuccess<T>(
         this Result<T> result,
-        Func<T, ActionResult> onSuccess)
+        Func<T, ActionResult> onSuccess,
+        ControllerBase controller)
         => result.IsSuccess
             ? onSuccess(result.Value!)
-            : ResultFactory.ProblemActionResult(result.Problem!);
+            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext);
 
     public static IResult HandleSuccess<T>(
         this Result<T> result,
-        Func<T, IResult> onSuccess)
+        Func<T, IResult> onSuccess,
+        HttpContext httpContext)
         => result.IsSuccess
             ? onSuccess(result.Value!)
-            : ResultFactory.ProblemIResult(result.Problem!);
+            : ResultFactory.ProblemIResult(result.Problem!, httpContext);
 
     public static ActionResult HandleFailure<T>(
         this Result<T> result,

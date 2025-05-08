@@ -55,17 +55,19 @@ public static class Result
 
     public static ActionResult HandleSuccess(
         this Core.Result result,
-        Func<ActionResult> onSuccess)
+        Func<ActionResult> onSuccess,
+        ControllerBase controller)
         => result.IsSuccess
             ? onSuccess()
-            : ResultFactory.ProblemActionResult(result.Problem!);
+            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext);
 
     public static IResult HandleSuccess(
         this Core.Result result,
-        Func<IResult> onSuccess)
+        Func<IResult> onSuccess,
+        HttpContext httpContext)
         => result.IsSuccess
             ? onSuccess()
-            : ResultFactory.ProblemIResult(result.Problem!);
+            : ResultFactory.ProblemIResult(result.Problem!, httpContext);
 
     public static ActionResult HandleFailure(
         this Core.Result resultBase,

@@ -55,17 +55,20 @@ public class Result : ResultBase
             ? TypedResults.NoContent()
             : ResultFactory.ProblemIResult(Problem!, httpContext, traceId);
 
-    public ActionResult HandleSuccess(Func<ActionResult> onSuccess)
+    public ActionResult HandleSuccess(
+        Func<ActionResult> onSuccess,
+        ControllerBase controller)
         => IsSuccess
             ? onSuccess()
-            : ResultFactory.ProblemActionResult(Problem!);
+            : ResultFactory.ProblemActionResult(Problem!, controller.HttpContext);
 
-    public IResult HandleSuccess(Func<IResult> onSuccess)
+    public IResult HandleSuccess(
+        Func<IResult> onSuccess,
+        HttpContext httpContext)
         => IsSuccess
             ? onSuccess()
-            : ResultFactory.ProblemIResult(Problem!);
-    
-    
+            : ResultFactory.ProblemIResult(Problem!, httpContext);
+
     public ActionResult HandleFailure(Func<ProblemDetails, ActionResult> onFailure)
         => IsSuccess
             ? new NoContentResult()

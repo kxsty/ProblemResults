@@ -93,23 +93,27 @@ public static class AsyncExtensions
     // HandleSuccess
     public static async Task<ActionResult> HandleSuccess(
         this Task<Result> result,
-        Func<ActionResult> onSuccess)
-        => (await result).HandleSuccess(onSuccess);
+        Func<ActionResult> onSuccess,
+        ControllerBase controller)
+        => (await result).HandleSuccess(onSuccess, controller);
 
     public static async Task<ActionResult> HandleSuccess<T>(
         this Task<Result<T>> result,
-        Func<T, ActionResult> onSuccess)
-        => (await result).HandleSuccess(onSuccess);
+        Func<T, ActionResult> onSuccess,
+        ControllerBase controller)
+        => (await result).HandleSuccess(onSuccess, controller);
 
     public static async Task<IResult> HandleSuccess(
         this Task<Result> result,
-        Func<IResult> onSuccess)
-        => (await result).HandleSuccess(onSuccess);
+        Func<IResult> onSuccess,
+        HttpContext httpContext)
+        => (await result).HandleSuccess(onSuccess, httpContext);
 
     public static async Task<IResult> HandleSuccess<T>(
         this Task<Result<T>> result,
-        Func<T, IResult> onSuccess)
-        => (await result).HandleSuccess(onSuccess);
+        Func<T, IResult> onSuccess,
+        HttpContext httpContext)
+        => (await result).HandleSuccess(onSuccess, httpContext);
 
     // HandleFailure
     public static async Task<ActionResult> HandleFailure(
