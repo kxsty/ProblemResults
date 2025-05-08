@@ -62,6 +62,17 @@ public class Result<T> : ResultBase
         => IsSuccess
             ? onSuccess(Value!)
             : ResultFactory.ProblemIResult(Problem!);
+    
+    
+    public ActionResult HandleFailure(Func<ProblemDetails, ActionResult> onFailure)
+        => IsSuccess
+            ? new OkObjectResult(Value)
+            : onFailure(Problem!);
+
+    public IResult HandleFailure(Func<ProblemDetails, IResult> onFailure)
+        => IsSuccess
+            ? TypedResults.Ok(Value)
+            : onFailure(Problem!);
 
     public void OnSuccess<TResult>(Func<T, TResult> onSuccess)
     {

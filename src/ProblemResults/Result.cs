@@ -64,6 +64,17 @@ public class Result : ResultBase
         => IsSuccess
             ? onSuccess()
             : ResultFactory.ProblemIResult(Problem!);
+    
+    
+    public ActionResult HandleFailure(Func<ProblemDetails, ActionResult> onFailure)
+        => IsSuccess
+            ? new NoContentResult()
+            : onFailure(Problem!);
+
+    public IResult HandleFailure(Func<ProblemDetails, IResult> onFailure)
+        => IsSuccess
+            ? TypedResults.NoContent()
+            : onFailure(Problem!);
 
     public void OnSuccess<TResult>(Func<TResult> onSuccess)
     {
