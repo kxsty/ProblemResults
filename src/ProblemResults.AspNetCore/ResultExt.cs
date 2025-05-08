@@ -5,10 +5,10 @@ using ProblemResults.Core;
 
 namespace ProblemResults.AspNetCore;
 
-public static class Result
+public static class ResultExt
 {
     public static ActionResult Match(
-        this Core.Result result,
+        this Result result,
         Func<ActionResult> onSuccess,
         Func<Problem, ActionResult> onFailure)
         => result.IsSuccess
@@ -16,7 +16,7 @@ public static class Result
             : onFailure(result.Problem!);
 
     public static IResult Match(
-        this Core.Result result,
+        this Result result,
         Func<IResult> onSuccess,
         Func<Problem, IResult> onFailure)
         => result.IsSuccess
@@ -24,60 +24,60 @@ public static class Result
             : onFailure(result.Problem!);
 
     public static ActionResult ToActionResult(
-        this Core.Result result,
+        this Result result,
         string? traceId = null)
         => result.IsSuccess
             ? new NoContentResult()
-            : ResultFactory.ProblemActionResult(result.Problem!, traceId);
+            : ResultFactoryExt.ProblemActionResult(result.Problem!, traceId);
 
     public static ActionResult ToActionResult(
-        this Core.Result result,
+        this Result result,
         ControllerBase controller,
         string? traceId = null)
         => result.IsSuccess
             ? new NoContentResult()
-            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext, traceId);
+            : ResultFactoryExt.ProblemActionResult(result.Problem!, controller.HttpContext, traceId);
 
     public static IResult ToIResult(
-        this Core.Result result,
+        this Result result,
         string? traceId = null)
         => result.IsSuccess
             ? TypedResults.NoContent()
-            : ResultFactory.ProblemIResult(result.Problem!, traceId);
+            : ResultFactoryExt.ProblemIResult(result.Problem!, traceId);
 
     public static IResult ToIResult(
-        this Core.Result result,
+        this Result result,
         HttpContext httpContext,
         string? traceId = null)
         => result.IsSuccess
             ? TypedResults.NoContent()
-            : ResultFactory.ProblemIResult(result.Problem!, httpContext, traceId);
+            : ResultFactoryExt.ProblemIResult(result.Problem!, httpContext, traceId);
 
     public static ActionResult HandleSuccess(
-        this Core.Result result,
+        this Result result,
         Func<ActionResult> onSuccess,
         ControllerBase controller)
         => result.IsSuccess
             ? onSuccess()
-            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext);
+            : ResultFactoryExt.ProblemActionResult(result.Problem!, controller.HttpContext);
 
     public static IResult HandleSuccess(
-        this Core.Result result,
+        this Result result,
         Func<IResult> onSuccess,
         HttpContext httpContext)
         => result.IsSuccess
             ? onSuccess()
-            : ResultFactory.ProblemIResult(result.Problem!, httpContext);
+            : ResultFactoryExt.ProblemIResult(result.Problem!, httpContext);
 
     public static ActionResult HandleFailure(
-        this Core.Result resultBase,
+        this Result resultBase,
         Func<Problem, ActionResult> onFailure)
         => resultBase.IsSuccess
             ? new NoContentResult()
             : onFailure(resultBase.Problem!);
 
     public static IResult HandleFailure(
-        this Core.Result resultBase,
+        this Result resultBase,
         Func<Problem, IResult> onFailure)
         => resultBase.IsSuccess
             ? TypedResults.NoContent()

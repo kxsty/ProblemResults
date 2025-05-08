@@ -10,7 +10,7 @@ public static class AsyncExtensions
 {
     // Match
     public static async Task<TResult> Match<TResult>(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<TResult> onSuccess,
         Func<Problem, TResult> onFailure)
         => (await result).Match(onSuccess, onFailure);
@@ -22,7 +22,7 @@ public static class AsyncExtensions
         => (await result).Match(onSuccess, onFailure);
 
     public static async Task<ActionResult> Match(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<ActionResult> onSuccess,
         Func<Problem, ActionResult> onFailure)
         => (await result).Match(onSuccess, onFailure);
@@ -34,7 +34,7 @@ public static class AsyncExtensions
         => (await result).Match(onSuccess, onFailure);
 
     public static async Task<IResult> Match(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<IResult> onSuccess,
         Func<Problem, IResult> onFailure)
         => (await result).Match(onSuccess, onFailure);
@@ -47,7 +47,7 @@ public static class AsyncExtensions
 
     // ToActionResult
     public static async Task<ActionResult> ToActionResult(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         string? traceId = null)
         => (await result).ToActionResult(traceId);
 
@@ -57,7 +57,7 @@ public static class AsyncExtensions
         => (await result).ToActionResult(traceId);
 
     public static async Task<ActionResult> ToActionResult(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         ControllerBase controller,
         string? traceId = null)
         => (await result).ToActionResult(controller, traceId);
@@ -70,7 +70,7 @@ public static class AsyncExtensions
 
     // ToIResult
     public static async Task<IResult> ToIResult(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         string? traceId = null)
         => (await result).ToIResult(traceId);
 
@@ -80,7 +80,7 @@ public static class AsyncExtensions
         => (await result).ToIResult(traceId);
 
     public static async Task<IResult> ToIResult(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         HttpContext httpContext,
         string? traceId = null)
         => (await result).ToIResult(httpContext, traceId);
@@ -93,7 +93,7 @@ public static class AsyncExtensions
 
     // HandleSuccess
     public static async Task<ActionResult> HandleSuccess(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<ActionResult> onSuccess,
         ControllerBase controller)
         => (await result).HandleSuccess(onSuccess, controller);
@@ -105,7 +105,7 @@ public static class AsyncExtensions
         => (await result).HandleSuccess(onSuccess, controller);
 
     public static async Task<IResult> HandleSuccess(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<IResult> onSuccess,
         HttpContext httpContext)
         => (await result).HandleSuccess(onSuccess, httpContext);
@@ -118,7 +118,7 @@ public static class AsyncExtensions
 
     // HandleFailure
     public static async Task<ActionResult> HandleFailure(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<Problem, ActionResult> onFailure)
         => (await result).HandleFailure(onFailure);
 
@@ -128,7 +128,7 @@ public static class AsyncExtensions
         => (await result).HandleFailure(onFailure);
 
     public static async Task<IResult> HandleFailure(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<Problem, IResult> onFailure)
         => (await result).HandleFailure(onFailure);
 
@@ -139,7 +139,7 @@ public static class AsyncExtensions
 
     // OnSuccess
     public static async Task OnSuccess<TResult>(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<TResult> onSuccess)
         => (await result).OnSuccess(onSuccess);
 
@@ -150,7 +150,7 @@ public static class AsyncExtensions
 
     // OnFailure
     public static async Task OnFailure<TResult>(
-        this Task<Core.Result> result,
+        this Task<Result> result,
         Func<Problem, TResult> onFailure)
         => (await result).OnFailure(onFailure);
 
