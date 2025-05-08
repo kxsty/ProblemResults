@@ -8,7 +8,7 @@ namespace ProblemResults.Core
 
         public bool IsSuccess => Problem == null;
 
-        public void OnFailure<TResult>(Func<Problem, TResult> onFailure)
+        public void OnFailure(Action<Problem> onFailure)
         {
             if (!IsSuccess) onFailure(Problem!);
         }

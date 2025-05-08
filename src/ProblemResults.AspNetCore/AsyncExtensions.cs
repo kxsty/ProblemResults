@@ -138,24 +138,24 @@ public static class AsyncExtensions
         => (await result).HandleFailure(onFailure);
 
     // OnSuccess
-    public static async Task OnSuccess<TResult>(
+    public static async Task OnSuccess(
         this Task<Result> result,
-        Func<TResult> onSuccess)
+        Action onSuccess)
         => (await result).OnSuccess(onSuccess);
 
-    public static async Task OnSuccess<TResult, T>(
+    public static async Task OnSuccess<T>(
         this Task<Result<T>> result,
-        Func<T, TResult> onSuccess)
+        Action<T> onSuccess)
         => (await result).OnSuccess(onSuccess);
 
     // OnFailure
-    public static async Task OnFailure<TResult>(
+    public static async Task OnFailure(
         this Task<Result> result,
-        Func<Problem, TResult> onFailure)
+        Action<Problem> onFailure)
         => (await result).OnFailure(onFailure);
 
-    public static async Task OnFailure<TResult, T>(
+    public static async Task OnFailure<T>(
         this Task<Result<T>> result,
-        Func<Problem, TResult> onFailure)
+        Action<Problem> onFailure)
         => (await result).OnFailure(onFailure);
 }
