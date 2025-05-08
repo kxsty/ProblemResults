@@ -17,15 +17,22 @@ public static class ResultFactory
         string? title = null,
         string? instance = null,
         IDictionary<string, object?>? extensions = null)
-        => new()
+    {
+        ProblemDetails problemDetails = new()
         {
             Type = type ?? ProblemDetailsDefaults.Type(statusCode),
             Title = title ?? ProblemDetailsDefaults.Title(statusCode),
             Status = statusCode,
             Detail = detail,
-            Instance = instance ?? GenerateValue,
-            Extensions = extensions ?? new Dictionary<string, object?>()
+            Instance = instance ?? GenerateValue
         };
+
+        if (extensions != null)
+            foreach (KeyValuePair<string, object?> extension in extensions)
+                problemDetails.Extensions.Add(extension);
+
+        return problemDetails;
+    }
 
     public static ProblemDetails NewProblemCustom(
         string? type = null,
@@ -34,15 +41,22 @@ public static class ResultFactory
         string? detail = null,
         string? instance = null,
         IDictionary<string, object?>? extensions = null)
-        => new()
+    {
+        ProblemDetails problemDetails = new()
         {
             Type = type,
             Title = title,
             Status = statusCode ?? 500,
             Detail = detail,
-            Instance = instance,
-            Extensions = extensions ?? new Dictionary<string, object?>()
+            Instance = instance
         };
+
+        if (extensions != null)
+            foreach (KeyValuePair<string, object?> extension in extensions)
+                problemDetails.Extensions.Add(extension);
+
+        return problemDetails;
+    }
 
     public static ObjectResult ProblemActionResult(ProblemDetails problemDetails, HttpContext httpContext,
         string? traceId = null)
