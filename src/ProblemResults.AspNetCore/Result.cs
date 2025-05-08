@@ -53,17 +53,31 @@ public static class Result
             ? TypedResults.NoContent()
             : ResultFactory.ProblemIResult(result.Problem!, httpContext, traceId);
 
-    public static ActionResult OnSuccessAuto(
+    public static ActionResult HandleSuccess(
         this Core.Result result,
         Func<ActionResult> onSuccess)
         => result.IsSuccess
             ? onSuccess()
             : ResultFactory.ProblemActionResult(result.Problem!);
 
-    public static IResult OnSuccessAuto(
+    public static IResult HandleSuccess(
         this Core.Result result,
         Func<IResult> onSuccess)
         => result.IsSuccess
             ? onSuccess()
             : ResultFactory.ProblemIResult(result.Problem!);
+
+    public static ActionResult HandleFailure(
+        this Core.Result resultBase,
+        Func<Problem, ActionResult> onFailure)
+        => resultBase.IsSuccess
+            ? new NoContentResult()
+            : onFailure(resultBase.Problem!);
+
+    public static IResult HandleFailure(
+        this Core.Result resultBase,
+        Func<Problem, IResult> onFailure)
+        => resultBase.IsSuccess
+            ? TypedResults.NoContent()
+            : onFailure(resultBase.Problem!);
 }
