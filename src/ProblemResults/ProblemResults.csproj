@@ -8,7 +8,7 @@
         <Version>1.0.2</Version>
         <Title>ProblemResults</Title>
         <Authors>kxsty</Authors>
-        <Description>ProblemResults is a minimalistic result pattern library for .NET designed to simplify error returns in accordarnce with RFC 9457 (Problem Details) standard.</Description>
+        <Description>A result pattern library for .NET implementing the RFC 9457 (Problem Details) standard</Description>
         <PackageProjectUrl>https://github.com/kxsty/ProblemResults</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/kxsty/ProblemResults</RepositoryUrl>
