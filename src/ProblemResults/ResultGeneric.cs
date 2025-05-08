@@ -53,17 +53,16 @@ public class Result<T> : ResultBase
             ? TypedResults.Ok(Value)
             : ResultFactory.ProblemIResult(Problem!, httpContext, traceId);
 
-    public ActionResult HandleSuccess(Func<T, ActionResult> onSuccess)
+    public ActionResult HandleSuccess(Func<T, ActionResult> onSuccess, ControllerBase controller)
         => IsSuccess
             ? onSuccess(Value!)
-            : ResultFactory.ProblemActionResult(Problem!);
+            : ResultFactory.ProblemActionResult(Problem!, controller.HttpContext);
 
-    public IResult HandleSuccess(Func<T, IResult> onSuccess)
+    public IResult HandleSuccess(Func<T, IResult> onSuccess, HttpContext httpContext)
         => IsSuccess
             ? onSuccess(Value!)
-            : ResultFactory.ProblemIResult(Problem!);
-    
-    
+            : ResultFactory.ProblemIResult(Problem!, httpContext);
+
     public ActionResult HandleFailure(Func<ProblemDetails, ActionResult> onFailure)
         => IsSuccess
             ? new OkObjectResult(Value)
