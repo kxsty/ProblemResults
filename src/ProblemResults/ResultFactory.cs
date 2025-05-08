@@ -80,13 +80,7 @@ public static class ResultFactory
         if (problemDetails.Instance == GenerateValue)
             problemDetails.Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}";
 
-        return TypedResults.Problem(
-            problemDetails.Detail,
-            problemDetails.Instance,
-            problemDetails.Status,
-            problemDetails.Title,
-            problemDetails.Type,
-            problemDetails.Extensions);
+        return TypedResults.Problem(problemDetails);
     }
 
     public static ProblemHttpResult ProblemIResult(ProblemDetails problemDetails, string? traceId = null)
@@ -98,12 +92,6 @@ public static class ResultFactory
         if (problemDetails.Instance == GenerateValue)
             problemDetails.Instance = null;
 
-        return TypedResults.Problem(
-            problemDetails.Detail,
-            problemDetails.Instance,
-            problemDetails.Status,
-            problemDetails.Title,
-            problemDetails.Type,
-            problemDetails.Extensions);
+        return TypedResults.Problem(problemDetails);
     }
 }
