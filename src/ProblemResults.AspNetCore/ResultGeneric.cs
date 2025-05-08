@@ -66,4 +66,18 @@ public static class ResultGeneric
         => result.IsSuccess
             ? onSuccess(result.Value!)
             : ResultFactory.ProblemIResult(result.Problem!);
+
+    public static ActionResult HandleFailure<T>(
+        this Result<T> result,
+        Func<Problem, ActionResult> onFailure)
+        => result.IsSuccess
+            ? new OkObjectResult(result.Value)
+            : onFailure(result.Problem!);
+
+    public static IResult HandleFailure<T>(
+        this Result<T> result,
+        Func<Problem, IResult> onFailure)
+        => result.IsSuccess
+            ? TypedResults.Ok(result.Value)
+            : onFailure(result.Problem!);
 }
