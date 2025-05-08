@@ -79,7 +79,7 @@ public class Result : ResultBase
             ? TypedResults.NoContent()
             : onFailure(Problem!);
 
-    public void OnSuccess<TResult>(Func<TResult> onSuccess)
+    public void OnSuccess(Action onSuccess)
     {
         if (IsSuccess) onSuccess();
     }

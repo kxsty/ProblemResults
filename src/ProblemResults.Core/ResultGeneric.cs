@@ -11,7 +11,7 @@ namespace ProblemResults.Core
                 ? onSuccess(Value!)
                 : onFailure(Problem!);
 
-        public void OnSuccess<TResult>(Func<T, TResult> onSuccess)
+        public void OnSuccess(Action<T> onSuccess)
         {
             if (IsSuccess) onSuccess(Value!);
         }

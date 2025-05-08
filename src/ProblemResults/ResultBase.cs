@@ -9,7 +9,7 @@ public class ResultBase
 
     protected bool IsSuccess => Problem == null;
 
-    public void OnFailure<TResult>(Func<ProblemDetails, TResult> onFailure)
+    public void OnFailure(Action<ProblemDetails> onFailure)
     {
         if (!IsSuccess) onFailure(Problem!);
     }
