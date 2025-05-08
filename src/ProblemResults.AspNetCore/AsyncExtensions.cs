@@ -95,7 +95,7 @@ public static class AsyncExtensions
     public static async Task<ActionResult> HandleSuccess(
         this Task<Core.Result> result,
         Func<ActionResult> onSuccess)
-        => (await result).OnSuccessAuto(onSuccess);
+        => (await result).HandleSuccess(onSuccess);
 
     public static async Task<ActionResult> HandleSuccess<T>(
         this Task<Result<T>> result,
@@ -105,7 +105,7 @@ public static class AsyncExtensions
     public static async Task<IResult> HandleSuccess(
         this Task<Core.Result> result,
         Func<IResult> onSuccess)
-        => (await result).OnSuccessAuto(onSuccess);
+        => (await result).HandleSuccess(onSuccess);
 
     public static async Task<IResult> HandleSuccess<T>(
         this Task<Result<T>> result,
