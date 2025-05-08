@@ -7,7 +7,7 @@ using ProblemResults.Core;
 
 namespace ProblemResults.AspNetCore;
 
-public static class ResultFactory
+public static class ResultFactoryExt
 {
     public static ObjectResult ProblemActionResult(Problem problem, HttpContext httpContext,
         string? traceId = null)
@@ -16,7 +16,7 @@ public static class ResultFactory
                                              ?? Activity.Current?.Id
                                              ?? httpContext.TraceIdentifier);
 
-        if (problem.Instance == Core.ResultFactory.GenerateValue)
+        if (problem.Instance == ResultFactory.GenerateValue)
             problem.Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}";
 
         return new ObjectResult(problem) { StatusCode = problem.Status };
@@ -28,7 +28,7 @@ public static class ResultFactory
                                              ?? Activity.Current?.Id
                                              ?? Activity.Current?.TraceId.ToString());
 
-        if (problem.Instance == Core.ResultFactory.GenerateValue)
+        if (problem.Instance == ResultFactory.GenerateValue)
             problem.Instance = null;
 
 
@@ -42,7 +42,7 @@ public static class ResultFactory
                                              ?? Activity.Current?.Id
                                              ?? httpContext.TraceIdentifier);
 
-        if (problem.Instance == Core.ResultFactory.GenerateValue)
+        if (problem.Instance == ResultFactory.GenerateValue)
             problem.Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}";
 
         return TypedResults.Problem(
@@ -60,7 +60,7 @@ public static class ResultFactory
                                              ?? Activity.Current?.Id
                                              ?? Activity.Current?.TraceId.ToString());
 
-        if (problem.Instance == Core.ResultFactory.GenerateValue)
+        if (problem.Instance == ResultFactory.GenerateValue)
             problem.Instance = null;
 
         return TypedResults.Problem(
