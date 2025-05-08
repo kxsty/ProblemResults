@@ -13,15 +13,22 @@ namespace ProblemResults.Core
             string? title = null,
             string? instance = null,
             IDictionary<string, object?>? extensions = null)
-            => new()
+        {
+            Problem problem = new()
             {
                 Type = type ?? ProblemDefaults.Type(statusCode),
                 Title = title ?? ProblemDefaults.Title(statusCode),
                 Status = statusCode,
                 Detail = detail,
-                Instance = instance ?? GenerateValue,
-                Extensions = extensions ?? new Dictionary<string, object?>()
+                Instance = instance ?? GenerateValue
             };
+
+            if (extensions != null)
+                foreach (KeyValuePair<string, object?> extension in extensions)
+                    problem.Extensions.Add(extension);
+
+            return problem;
+        }
 
         public static Problem NewProblemCustom(
             string? type = null,
@@ -30,14 +37,21 @@ namespace ProblemResults.Core
             string? detail = null,
             string? instance = null,
             IDictionary<string, object?>? extensions = null)
-            => new()
+        {
+            Problem problem = new()
             {
                 Type = type,
                 Title = title,
                 Status = statusCode ?? 500,
                 Detail = detail,
-                Instance = instance,
-                Extensions = extensions ?? new Dictionary<string, object?>()
+                Instance = instance
             };
+
+            if (extensions != null)
+                foreach (KeyValuePair<string, object?> extension in extensions)
+                    problem.Extensions.Add(extension);
+
+            return problem;
+        }
     }
 }
