@@ -4,7 +4,7 @@ namespace ProblemResults.Core
 {
     public class Result<T> : ResultBase
     {
-        public T? Value { get; set; }
+        public T? Value { get; init; }
 
         public TResult Match<TResult>(Func<T, TResult> onSuccess, Func<Problem, TResult> onFailure)
             => IsSuccess

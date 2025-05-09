@@ -8,7 +8,9 @@ namespace ProblemResults.Core
     {
         // This non-static methods are not included in ResultBase to prevent the user
         // from selecting methods without a value in Result<T>
-        public TResult Match<TResult>(Func<TResult> onSuccess, Func<Problem, TResult> onFailure)
+        public TResult Match<TResult>(
+            Func<TResult> onSuccess,
+            Func<Problem, TResult> onFailure)
             => IsSuccess
                 ? onSuccess()
                 : onFailure(Problem!);
@@ -33,9 +35,9 @@ namespace ProblemResults.Core
                 Problem = new Problem(
                     statusCode,
                     detail,
-                    extensions: extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
+                    extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
             };
-        
+
         public static Result Failure(
             int statusCode,
             string? detail = null,
@@ -45,10 +47,7 @@ namespace ProblemResults.Core
                 Problem = new Problem(
                     statusCode,
                     detail,
-                    extensions: extensions)
+                    extensions)
             };
-
-        public static Result FailureCustom(Problem problem)
-            => new() { Problem = problem };
     }
 }

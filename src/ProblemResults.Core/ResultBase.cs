@@ -4,7 +4,7 @@ namespace ProblemResults.Core
 {
     public class ResultBase
     {
-        public Problem? Problem { get; set; }
+        public Problem? Problem { get; init; }
 
         public bool IsSuccess => Problem == null;
 
