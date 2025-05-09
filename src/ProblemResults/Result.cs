@@ -99,7 +99,7 @@ public class Result : ResultBase
             Problem = ResultFactory.NewProblem(
                 statusCode,
                 detail,
-                extensions: extensions?.ToDictionary())
+                extensions: extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
         };
 
     public static Result Failure(
@@ -117,7 +117,7 @@ public class Result : ResultBase
                 type,
                 title,
                 instance,
-                extensions?.ToDictionary())
+                extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
         };
 
     public static Result Failure(
@@ -153,7 +153,7 @@ public class Result : ResultBase
                 statusCode,
                 detail,
                 instance,
-                extensions?.ToDictionary())
+                extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
         };
 
     public static Result FailureCustom(
