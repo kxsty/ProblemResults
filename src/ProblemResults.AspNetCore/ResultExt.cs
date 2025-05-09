@@ -25,25 +25,11 @@ public static class ResultExt
 
     public static ActionResult ToActionResult(
         this Result result,
-        string? traceId = null)
-        => result.IsSuccess
-            ? new NoContentResult()
-            : ResultFactoryExt.ProblemActionResult(result.Problem!, traceId);
-
-    public static ActionResult ToActionResult(
-        this Result result,
         ControllerBase controller,
         string? traceId = null)
         => result.IsSuccess
             ? new NoContentResult()
-            : ResultFactoryExt.ProblemActionResult(result.Problem!, controller.HttpContext, traceId);
-
-    public static IResult ToIResult(
-        this Result result,
-        string? traceId = null)
-        => result.IsSuccess
-            ? TypedResults.NoContent()
-            : ResultFactoryExt.ProblemIResult(result.Problem!, traceId);
+            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext, traceId);
 
     public static IResult ToIResult(
         this Result result,
@@ -51,7 +37,7 @@ public static class ResultExt
         string? traceId = null)
         => result.IsSuccess
             ? TypedResults.NoContent()
-            : ResultFactoryExt.ProblemIResult(result.Problem!, httpContext, traceId);
+            : ResultFactory.ProblemIResult(result.Problem!, httpContext, traceId);
 
     public static ActionResult HandleSuccess(
         this Result result,
@@ -59,7 +45,7 @@ public static class ResultExt
         ControllerBase controller)
         => result.IsSuccess
             ? onSuccess()
-            : ResultFactoryExt.ProblemActionResult(result.Problem!, controller.HttpContext);
+            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext);
 
     public static IResult HandleSuccess(
         this Result result,
@@ -67,7 +53,7 @@ public static class ResultExt
         HttpContext httpContext)
         => result.IsSuccess
             ? onSuccess()
-            : ResultFactoryExt.ProblemIResult(result.Problem!, httpContext);
+            : ResultFactory.ProblemIResult(result.Problem!, httpContext);
 
     public static ActionResult HandleFailure(
         this Result resultBase,

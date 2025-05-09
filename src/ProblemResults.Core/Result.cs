@@ -30,82 +30,22 @@ namespace ProblemResults.Core
             params (string key, object? value)[]? extensions)
             => new()
             {
-                Problem = ResultFactory.NewProblem(
+                Problem = new Problem(
                     statusCode,
                     detail,
                     extensions: extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
             };
-
+        
         public static Result Failure(
             int statusCode,
             string? detail = null,
-            string? type = null,
-            string? title = null,
-            string? instance = null,
-            params (string key, object? value)[]? extensions)
-            => new()
-            {
-                Problem = ResultFactory.NewProblem(
-                    statusCode,
-                    detail,
-                    type,
-                    title,
-                    instance,
-                    extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
-            };
-
-        public static Result Failure(
-            int statusCode,
-            string? detail = null,
-            string? type = null,
-            string? title = null,
-            string? instance = null,
             IDictionary<string, object?>? extensions = null)
             => new()
             {
-                Problem = ResultFactory.NewProblem(
+                Problem = new Problem(
                     statusCode,
                     detail,
-                    type,
-                    title,
-                    instance,
-                    extensions)
-            };
-
-        public static Result FailureCustom(
-            string? type = null,
-            string? title = null,
-            int? statusCode = null,
-            string? detail = null,
-            string? instance = null,
-            params (string key, object? value)[]? extensions)
-            => new()
-            {
-                Problem = ResultFactory.NewProblemCustom(
-                    type,
-                    title,
-                    statusCode,
-                    detail,
-                    instance,
-                    extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
-            };
-
-        public static Result FailureCustom(
-            string? type = null,
-            string? title = null,
-            int? statusCode = null,
-            string? detail = null,
-            string? instance = null,
-            IDictionary<string, object?>? extensions = null)
-            => new()
-            {
-                Problem = ResultFactory.NewProblemCustom(
-                    type,
-                    title,
-                    statusCode,
-                    detail,
-                    instance,
-                    extensions)
+                    extensions: extensions)
             };
 
         public static Result FailureCustom(Problem problem)

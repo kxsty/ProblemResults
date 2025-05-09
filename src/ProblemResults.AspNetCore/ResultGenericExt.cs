@@ -25,25 +25,11 @@ public static class ResultGenericExt
 
     public static ActionResult ToActionResult<T>(
         this Result<T> result,
-        string? traceId = null)
-        => result.IsSuccess
-            ? new OkObjectResult(result.Value)
-            : ResultFactoryExt.ProblemActionResult(result.Problem!, traceId);
-
-    public static ActionResult ToActionResult<T>(
-        this Result<T> result,
         ControllerBase controller,
         string? traceId = null)
         => result.IsSuccess
             ? new OkObjectResult(result.Value)
-            : ResultFactoryExt.ProblemActionResult(result.Problem!, controller.HttpContext, traceId);
-
-    public static IResult ToIResult<T>(
-        this Result<T> result,
-        string? traceId = null)
-        => result.IsSuccess
-            ? TypedResults.Ok(result.Value)
-            : ResultFactoryExt.ProblemIResult(result.Problem!, traceId);
+            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext, traceId);
 
     public static IResult ToIResult<T>(
         this Result<T> result,
@@ -51,7 +37,7 @@ public static class ResultGenericExt
         string? traceId = null)
         => result.IsSuccess
             ? TypedResults.Ok(result.Value)
-            : ResultFactoryExt.ProblemIResult(result.Problem!, httpContext, traceId);
+            : ResultFactory.ProblemIResult(result.Problem!, httpContext, traceId);
 
     public static ActionResult HandleSuccess<T>(
         this Result<T> result,
@@ -59,7 +45,7 @@ public static class ResultGenericExt
         ControllerBase controller)
         => result.IsSuccess
             ? onSuccess(result.Value!)
-            : ResultFactoryExt.ProblemActionResult(result.Problem!, controller.HttpContext);
+            : ResultFactory.ProblemActionResult(result.Problem!, controller.HttpContext);
 
     public static IResult HandleSuccess<T>(
         this Result<T> result,
@@ -67,7 +53,7 @@ public static class ResultGenericExt
         HttpContext httpContext)
         => result.IsSuccess
             ? onSuccess(result.Value!)
-            : ResultFactoryExt.ProblemIResult(result.Problem!, httpContext);
+            : ResultFactory.ProblemIResult(result.Problem!, httpContext);
 
     public static ActionResult HandleFailure<T>(
         this Result<T> result,
