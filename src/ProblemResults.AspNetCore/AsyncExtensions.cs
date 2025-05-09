@@ -48,16 +48,6 @@ public static class AsyncExtensions
     // ToActionResult
     public static async Task<ActionResult> ToActionResult(
         this Task<Result> result,
-        string? traceId = null)
-        => (await result).ToActionResult(traceId);
-
-    public static async Task<ActionResult> ToActionResult<T>(
-        this Task<Result<T>> result,
-        string? traceId = null)
-        => (await result).ToActionResult(traceId);
-
-    public static async Task<ActionResult> ToActionResult(
-        this Task<Result> result,
         ControllerBase controller,
         string? traceId = null)
         => (await result).ToActionResult(controller, traceId);
@@ -69,16 +59,6 @@ public static class AsyncExtensions
         => (await result).ToActionResult(controller, traceId);
 
     // ToIResult
-    public static async Task<IResult> ToIResult(
-        this Task<Result> result,
-        string? traceId = null)
-        => (await result).ToIResult(traceId);
-
-    public static async Task<IResult> ToIResult<T>(
-        this Task<Result<T>> result,
-        string? traceId = null)
-        => (await result).ToIResult(traceId);
-
     public static async Task<IResult> ToIResult(
         this Task<Result> result,
         HttpContext httpContext,
