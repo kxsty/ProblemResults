@@ -21,19 +21,6 @@ Result.Failure(
     StatusCodes.Status403Forbidden,
     "detail",
     ("key", "value")); // Convenient writing of optional extensions using tuples
-
-// The type, title, instance and traceId will not be generated
-// and you must add them yourself
-Result.FailureCustom(  
-    "type",
-    "title",
-    StatusCodes.Status404NotFound,
-    "detail",
-    "instance",
-    ("key", "value"));
-
-// You can add an existing problemDetails
-Result.FailureCustom(problemDetails);
 ```
 ### Process the result
 ```csharp
@@ -58,7 +45,7 @@ existingResult.ToIResult(httpContext); // Also you can add your own traceId
 // Allows the user to define part of the result (e.g. if you define onSuccess
 // and there is a failure, then onFailure will execute), returns ActionResult or IResult
 existingResult.HandleSuccess(
-    value => );
+    value => , this);
 existingResult.HandleFailure(
     problem => );
 ```
