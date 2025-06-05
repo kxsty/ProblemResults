@@ -12,29 +12,24 @@ public class Result : ResultBase
     // from selecting methods without a value when using Result<T>
     public TResult Match<TResult>(
         Func<TResult> onSuccess,
-        Func<ProblemDetails, TResult> onFailure)
+        Func<Problem, TResult> onFailure)
         => IsSuccess
             ? onSuccess()
             : onFailure(Problem!);
 
     public ActionResult Match(
         Func<ActionResult> onSuccess,
-        Func<ProblemDetails, ActionResult> onFailure)
+        Func<Problem, ActionResult> onFailure)
         => IsSuccess
             ? onSuccess()
             : onFailure(Problem!);
 
     public IResult Match(
         Func<IResult> onSuccess,
-        Func<ProblemDetails, IResult> onFailure)
+        Func<Problem, IResult> onFailure)
         => IsSuccess
             ? onSuccess()
             : onFailure(Problem!);
-
-    public ActionResult ToActionResult(string? traceId = null)
-        => IsSuccess
-            ? new NoContentResult()
-            : ResultFactory.ProblemActionResult(Problem!, traceId);
 
     public ActionResult ToActionResult(
         ControllerBase controller,
@@ -42,11 +37,6 @@ public class Result : ResultBase
         => IsSuccess
             ? new NoContentResult()
             : ResultFactory.ProblemActionResult(Problem!, controller.HttpContext, traceId);
-
-    public IResult ToIResult(string? traceId = null)
-        => IsSuccess
-            ? TypedResults.NoContent()
-            : ResultFactory.ProblemIResult(Problem!, traceId);
 
     public IResult ToIResult(
         HttpContext httpContext,
@@ -69,12 +59,12 @@ public class Result : ResultBase
             ? onSuccess()
             : ResultFactory.ProblemIResult(Problem!, httpContext);
 
-    public ActionResult HandleFailure(Func<ProblemDetails, ActionResult> onFailure)
+    public ActionResult HandleFailure(Func<Problem, ActionResult> onFailure)
         => IsSuccess
             ? new NoContentResult()
             : onFailure(Problem!);
 
-    public IResult HandleFailure(Func<ProblemDetails, IResult> onFailure)
+    public IResult HandleFailure(Func<Problem, IResult> onFailure)
         => IsSuccess
             ? TypedResults.NoContent()
             : onFailure(Problem!);
@@ -96,84 +86,21 @@ public class Result : ResultBase
         params (string key, object? value)[]? extensions)
         => new()
         {
-            Problem = ResultFactory.NewProblem(
+            Problem = new(
                 statusCode,
                 detail,
-                extensions: extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
-        };
-
-    public static Result Failure(
-        int statusCode,
-        string? detail = null,
-        string? type = null,
-        string? title = null,
-        string? instance = null,
-        params (string key, object? value)[]? extensions)
-        => new()
-        {
-            Problem = ResultFactory.NewProblem(
-                statusCode,
-                detail,
-                type,
-                title,
-                instance,
                 extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
         };
 
     public static Result Failure(
         int statusCode,
         string? detail = null,
-        string? type = null,
-        string? title = null,
-        string? instance = null,
         IDictionary<string, object?>? extensions = null)
         => new()
         {
-            Problem = ResultFactory.NewProblem(
+            Problem = new(
                 statusCode,
                 detail,
-                type,
-                title,
-                instance,
                 extensions)
         };
-
-    public static Result FailureCustom(
-        string? type = null,
-        string? title = null,
-        int? statusCode = null,
-        string? detail = null,
-        string? instance = null,
-        params (string key, object? value)[]? extensions)
-        => new()
-        {
-            Problem = ResultFactory.NewProblemCustom(
-                type,
-                title,
-                statusCode,
-                detail,
-                instance,
-                extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
-        };
-
-    public static Result FailureCustom(
-        string? type = null,
-        string? title = null,
-        int? statusCode = null,
-        string? detail = null,
-        string? instance = null,
-        IDictionary<string, object?>? extensions = null)
-        => new()
-        {
-            Problem = ResultFactory.NewProblemCustom(
-                type,
-                title,
-                statusCode,
-                detail,
-                instance,
-                extensions)
-        };
-
-    public static Result FailureCustom(ProblemDetails problem)
-        => new() { Problem = problem };
 }

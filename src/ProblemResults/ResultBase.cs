@@ -1,15 +1,14 @@
 using System;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ProblemResults;
 
 public class ResultBase
 {
-    public ProblemDetails? Problem { get; set; }
+    public Problem? Problem { get; init; }
 
     protected bool IsSuccess => Problem == null;
 
-    public void OnFailure(Action<ProblemDetails> onFailure)
+    public void OnFailure(Action<Problem> onFailure)
     {
         if (!IsSuccess) onFailure(Problem!);
     }
