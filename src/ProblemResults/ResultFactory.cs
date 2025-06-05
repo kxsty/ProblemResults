@@ -43,7 +43,7 @@ public static class ResultFactory
     {
         ProblemDetails problemDetails = NewProblemDetails(problem, httpContext, traceId);
 
-        return new ObjectResult(problemDetails) { StatusCode = problemDetails.Status };
+        return new(problemDetails) { StatusCode = problemDetails.Status };
     }
 
     public static ProblemHttpResult ProblemIResult(

@@ -32,7 +32,7 @@ namespace ProblemResults.Core
             params (string key, object? value)[]? extensions)
             => new()
             {
-                Problem = new Problem(
+                Problem = new(
                     statusCode,
                     detail,
                     extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
@@ -44,7 +44,7 @@ namespace ProblemResults.Core
             IDictionary<string, object?>? extensions = null)
             => new()
             {
-                Problem = new Problem(
+                Problem = new(
                     statusCode,
                     detail,
                     extensions)

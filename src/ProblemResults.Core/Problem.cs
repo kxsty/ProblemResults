@@ -10,9 +10,9 @@ namespace ProblemResults.Core
             Status = status;
             Detail = detail;
 
-            if (extensions != null)
-                foreach (KeyValuePair<string, object?> extension in extensions)
-                    Extensions.Add(extension);
+            if (extensions == null) return;
+            foreach (KeyValuePair<string, object?> extension in extensions)
+                Extensions.Add(extension);
         }
 
         public int Status { get; init; }
