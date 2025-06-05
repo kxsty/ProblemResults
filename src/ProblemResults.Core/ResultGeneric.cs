@@ -18,5 +18,8 @@ namespace ProblemResults.Core
 
         public static implicit operator Result<T>(Result result)
             => new() { Problem = result.Problem };
+        
+        public static implicit operator Result<T>(T value)
+            => new() { Value = value };
     }
 }
