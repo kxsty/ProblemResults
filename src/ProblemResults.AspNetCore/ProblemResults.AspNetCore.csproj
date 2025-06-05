@@ -5,7 +5,7 @@
         <LangVersion>11.0</LangVersion>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <Title>ProblemResults.AspNetCore</Title>
         <Authors>kxsty</Authors>
         <Description>A result pattern library for .NET implementing the RFC 9457 (Problem Details) standard</Description>
@@ -15,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="ProblemResults.Core" Version="1.0.3"/>
+        <PackageReference Include="ProblemResults.Core" Version="1.0.4"/>
         <ProjectReference Include="..\ProblemResults.Core\ProblemResults.Core.csproj"/>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
