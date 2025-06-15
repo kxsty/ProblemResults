@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProblemResults;
 
-internal static class ProblemDefaults
+public static class ProblemDefaults
 {
     private static readonly Dictionary<int, (string Type, string Title)> Defaults = new()
     {
