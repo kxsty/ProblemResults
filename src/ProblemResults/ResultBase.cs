@@ -6,7 +6,7 @@ public class ResultBase
 {
     public Problem? Problem { get; init; }
 
-    protected bool IsSuccess => Problem == null;
+    public bool IsSuccess => Problem == null;
 
     public void OnFailure(Action<Problem> onFailure)
     {
