@@ -5,7 +5,7 @@ namespace ProblemResults;
 
 public class Problem
 {
-    internal Problem(int status, string? detail = null, IDictionary<string, object?>? extensions = null)
+    internal Problem(ProblemCodes status, string? detail = null, IDictionary<string, object?>? extensions = null)
     {
         Status = status;
         Detail = detail;
@@ -15,7 +15,7 @@ public class Problem
             Extensions.Add(extension);
     }
 
-    public int Status { get; init; }
+    public ProblemCodes Status { get; init; }
 
     public string? Detail { get; init; }
 

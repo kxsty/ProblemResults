@@ -19,7 +19,7 @@ public static class ResultFactory
         {
             Type = ProblemDefaults.Type(problem.Status),
             Title = ProblemDefaults.Title(problem.Status),
-            Status = problem.Status,
+            Status = (int)problem.Status,
             Detail = problem.Detail,
             Instance = $"{httpContext.Request.Method} {httpContext.Request.Path}"
         };

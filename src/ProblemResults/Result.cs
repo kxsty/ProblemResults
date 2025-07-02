@@ -81,7 +81,7 @@ public class Result : ResultBase
         => new() { Value = value };
 
     public static Result Failure(
-        int statusCode,
+        ProblemCodes statusCode,
         string? detail = null,
         params (string key, object? value)[]? extensions)
         => new()
@@ -93,7 +93,7 @@ public class Result : ResultBase
         };
 
     public static Result Failure(
-        int statusCode,
+        ProblemCodes statusCode,
         string? detail = null,
         IDictionary<string, object?>? extensions = null)
         => new()

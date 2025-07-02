@@ -5,7 +5,7 @@
         <LangVersion>11.0</LangVersion>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.4</Version>
+        <Version>1.0.5</Version>
         <Title>ProblemResults</Title>
         <Authors>kxsty</Authors>
         <Description>A result pattern library for .NET implementing the RFC 9457 (Problem Details) standard</Description>
