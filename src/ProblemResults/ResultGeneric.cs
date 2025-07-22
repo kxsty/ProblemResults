@@ -73,7 +73,7 @@ public class Result<T> : ResultBase
     {
         if (IsSuccess) onSuccess(Value!);
     }
-    
+
     public static Result<T> Success()
         => new();
 
@@ -106,7 +106,7 @@ public class Result<T> : ResultBase
 
     public static implicit operator Result<T>(Result result)
         => new() { Problem = result.Problem };
-    
+
     public static implicit operator Result<T>(T value)
         => new() { Value = value };
 }
