@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,6 +73,36 @@ public class Result<T> : ResultBase
     {
         if (IsSuccess) onSuccess(Value!);
     }
+    
+    public static Result<T> Success()
+        => new();
+
+    public static Result<T> Success(T value)
+        => new() { Value = value };
+
+    public static Result<T> Failure(
+        ProblemCodes statusCode,
+        string? detail = null,
+        params (string key, object? value)[]? extensions)
+        => new()
+        {
+            Problem = new(
+                statusCode,
+                detail,
+                extensions?.ToDictionary(tuple => tuple.key, tuple => tuple.value))
+        };
+
+    public static Result<T> Failure(
+        ProblemCodes statusCode,
+        string? detail = null,
+        IDictionary<string, object?>? extensions = null)
+        => new()
+        {
+            Problem = new(
+                statusCode,
+                detail,
+                extensions)
+        };
 
     public static implicit operator Result<T>(Result result)
         => new() { Problem = result.Problem };
